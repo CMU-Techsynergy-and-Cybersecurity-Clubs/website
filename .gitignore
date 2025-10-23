@@ -1,0 +1,25 @@
+# Original media folders (these are copied into club-website/src/assets/)
+Cyber Fair 2025 Media/
+Cyber Security Club Logos/
+ICPC 2025/
+TechSynergy Club Logos/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+
+# Temporary files
+*.tmp
+*.temp
+.cache
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
