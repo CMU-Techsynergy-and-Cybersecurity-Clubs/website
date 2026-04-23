@@ -7,11 +7,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'cyber-red': '#c9302c',
-        'cyber-gold': '#ffd700',
-        'cyber-dark': '#1a1a2e',
-        'synergy-purple': '#764ba2',
-        'synergy-purple-dark': '#5e3d8f',
+        'cybersecurity-red': '#c9302c',
+        'cybersecurity-gold': '#ffd700',
+        'cybersecurity-dark': '#1a1a2e',
+        'compsci-purple': '#764ba2',
+        'compsci-purple-dark': '#5e3d8f',
       },
       keyframes: {
         'fade-in': {

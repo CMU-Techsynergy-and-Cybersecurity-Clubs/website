@@ -2,14 +2,13 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'CMU Tech Clubs - Cybersecurity & TechSynergy',
+  title: 'Tech Clubs @ CMU - Cybersecurity & Computer Science',
   description:
-    'Colorado Mesa University Tech Clubs - Cybersecurity Club and TechSynergy Club. Empowering students through technology, innovation, and collaboration.',
+    'Colorado Mesa University Tech Clubs - Cybersecurity Club and Computer Science Club. Empowering students through technology, innovation, and collaboration.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,7 +17,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.className} flex flex-col min-h-screen bg-white text-gray-900`}>
         <Navbar />
         <main className="flex-1">{children}</main>
-        <Footer />
       </body>
     </html>
   )

@@ -20,7 +20,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center group">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent font-extrabold text-xl tracking-tight">
-              CMU Tech Clubs
+              Tech Clubs @ CMU
             </span>
           </Link>
 

@@ -1,0 +1,51 @@
+'use client'
+
+import { useState } from 'react'
+import { clubThemes, type ClubKey } from '@/lib/clubs'
+
+export default function OfficerAvatar({
+  name,
+  photo,
+  theme,
+  size = 'md',
+}: {
+  name: string
+  photo?: string
+  theme: ClubKey
+  size?: 'md' | 'lg'
+}) {
+  const [imgError, setImgError] = useState(false)
+  const t = clubThemes[theme]
+
+  const initials = name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .slice(0, 2)
+
+  const sizeClasses = size === 'lg' ? 'w-20 h-20' : 'w-24 h-24'
+  const textClass = size === 'lg' ? 'text-xl' : 'text-2xl'
+
+  if (photo && !imgError) {
+    const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+    return (
+      <div className={`${sizeClasses} rounded-full overflow-hidden mx-auto mb-4 flex-shrink-0`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${base}${photo}`}
+          alt={name}
+          onError={() => setImgError(true)}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className={`${sizeClasses} rounded-full bg-gradient-to-br ${t.avatarGradient} flex items-center justify-center mx-auto mb-4`}
+    >
+      <span className={`text-white font-bold ${textClass}`}>{initials}</span>
+    </div>
+  )
+}
