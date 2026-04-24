@@ -30,11 +30,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          # Change this to match your repository name.
-          # e.g. if your site is at https://username.github.io/website
-          # set this to /website
-          NEXT_PUBLIC_BASE_PATH: /website
 
       - uses: actions/upload-pages-artifact@v3
         with:
