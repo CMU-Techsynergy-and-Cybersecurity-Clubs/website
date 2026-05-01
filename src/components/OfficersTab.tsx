@@ -18,23 +18,23 @@ export default function OfficersTab({
   return (
     <div className="space-y-8">
       {officers.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 text-center">
-          <p className="text-gray-500 italic">Officer information coming soon.</p>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6 text-center">
+          <p className="text-gray-500 dark:text-gray-400 italic">Officer information coming soon.</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
           {officers.map((officer) => (
             <div
               key={officer.name}
-              className={`bg-white rounded-xl p-6 text-center border border-gray-200 ${t.hoverBorder} hover:shadow-md transition-all duration-200`}
+              className={`bg-white dark:bg-gray-900 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-800 ${t.hoverBorder} hover:shadow-md transition-all duration-200`}
             >
               <OfficerAvatar name={officer.name} photo={officer.photo} theme={theme} />
-              <h3 className="font-bold text-gray-900 text-base mb-0.5">{officer.name}</h3>
+              <h3 className="font-bold text-gray-900 dark:text-gray-100 text-base mb-0.5">{officer.name}</h3>
               <p className={`${t.roleText} font-semibold text-sm mb-2`}>{officer.role}</p>
-              {officer.major && <p className="text-gray-500 text-xs mb-1">{officer.major}</p>}
-              {officer.year && <p className="text-gray-400 text-xs mb-4">{officer.year}</p>}
+              {officer.major && <p className="text-gray-500 dark:text-gray-400 text-xs mb-1">{officer.major}</p>}
+              {officer.year && <p className="text-gray-400 dark:text-gray-500 text-xs mb-4">{officer.year}</p>}
               {officer.bio && (
-                <p className="text-gray-500 text-xs leading-relaxed mb-4">{officer.bio}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs leading-relaxed mb-4">{officer.bio}</p>
               )}
               {officer.email && (
                 <a
@@ -49,7 +49,7 @@ export default function OfficersTab({
                   href={officer.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 flex items-center justify-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium transition-colors"
+                  className="mt-2 flex items-center justify-center gap-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-xs font-medium transition-colors"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -68,20 +68,20 @@ export default function OfficersTab({
       )}
 
       {advisor && (
-        <div className="bg-white rounded-xl border-l-4 border-gray-400 shadow-sm p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">👨‍🏫 Faculty Advisor</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border-l-4 border-gray-400 dark:border-gray-600 shadow-sm p-6">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">👨‍🏫 Faculty Advisor</h3>
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <div className="flex-shrink-0">
               <OfficerAvatar name={advisor.name} photo={advisor.photo} theme={theme} size="lg" />
             </div>
             <div>
-              <h4 className="font-bold text-gray-900 text-lg mb-0.5">{advisor.name}</h4>
+              <h4 className="font-bold text-gray-900 dark:text-gray-100 text-lg mb-0.5">{advisor.name}</h4>
               <p className={`${t.roleText} font-semibold text-sm mb-1`}>{advisor.role}</p>
               {advisor.department && (
-                <p className="text-gray-500 text-sm mb-3">{advisor.department}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">{advisor.department}</p>
               )}
               {advisor.bio && (
-                <p className="text-gray-600 text-sm leading-relaxed mb-3">{advisor.bio}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">{advisor.bio}</p>
               )}
               {advisor.email && (
                 <a
@@ -97,7 +97,7 @@ export default function OfficersTab({
       )}
 
       <div className={`${t.noticeClass} border rounded-xl p-5 text-center`}>
-        <p className="text-gray-700 text-sm">
+        <p className="text-gray-700 dark:text-gray-200 text-sm">
           🗳️ <strong>Interested in running for office?</strong> Officer elections are held each
           spring semester. Reach out at{' '}
           <a href={`mailto:${contactEmail}`} className={`${t.roleText} font-semibold hover:underline`}>

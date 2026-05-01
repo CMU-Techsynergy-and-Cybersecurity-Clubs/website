@@ -17,14 +17,14 @@ export default function ImageGallery({
   return (
     <div className="my-8">
       {title && (
-        <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">{title}</h3>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 text-center">{title}</h3>
       )}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {images.map((image, i) => (
           <button
             key={i}
             onClick={() => setSelected(image)}
-            className="overflow-hidden rounded-lg shadow-sm bg-gray-100 aspect-[4/3] cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+            className="overflow-hidden rounded-lg shadow-sm bg-gray-100 dark:bg-gray-800 aspect-[4/3] cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 dark:focus:ring-offset-gray-950"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

@@ -35,8 +35,8 @@ export default function SponsorsTab({
   return (
     <div className="space-y-8">
       {sponsors.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 text-center">
-          <p className="text-gray-500 italic">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6 text-center">
+          <p className="text-gray-500 dark:text-gray-400 italic">
             We don&apos;t have any sponsors yet — be the first to partner with us!
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function SponsorsTab({
           return (
             <div
               key={tier}
-              className="bg-white rounded-xl border border-gray-200 shadow-sm p-6"
+              className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6"
             >
               <div className="flex items-center gap-3 mb-5">
                 <span className={`px-3 py-1 rounded-full text-sm font-bold ${tierBadge[tier]}`}>
@@ -72,9 +72,9 @@ export default function SponsorsTab({
         })
       )}
 
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">💼 Sponsorship Benefits</h3>
-        <div className="overflow-x-auto rounded-lg border border-gray-200">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">💼 Sponsorship Benefits</h3>
+        <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-800">
           <table className="w-full text-sm">
             <thead>
               <tr className={`${t.headerBg} text-white`}>
@@ -86,10 +86,10 @@ export default function SponsorsTab({
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
               {benefits.map((benefit, i) => (
-                <tr key={benefit.label} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                  <td className="px-4 py-3 text-gray-700 font-medium">{benefit.label}</td>
+                <tr key={benefit.label} className={i % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-950'}>
+                  <td className="px-4 py-3 text-gray-700 dark:text-gray-300 font-medium">{benefit.label}</td>
                   {benefit.tiers.map((cell, j) => (
                     <td key={j} className="px-3 py-3 text-center">
                       {cell === true ? (
@@ -109,7 +109,7 @@ export default function SponsorsTab({
       </div>
 
       <div className={`${t.noticeClass} border rounded-xl p-5 text-center`}>
-        <p className="text-gray-700 text-sm">
+        <p className="text-gray-700 dark:text-gray-200 text-sm">
           🤝 <strong>Interested in sponsoring?</strong> Reach out at{' '}
           <a
             href={`mailto:${contactEmail}`}

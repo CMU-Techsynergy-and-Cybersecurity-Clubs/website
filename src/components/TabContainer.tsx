@@ -20,7 +20,7 @@ export default function TabContainer({
 
   return (
     <div>
-      <div className="flex flex-wrap gap-1 border-b border-gray-200 mb-8" role="tablist">
+      <div className="flex flex-wrap gap-1 border-b border-gray-200 dark:border-gray-800 mb-8" role="tablist">
         {tabs.map((tab, i) => (
           <button
             key={tab.label}

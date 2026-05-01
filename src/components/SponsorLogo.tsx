@@ -31,7 +31,7 @@ export default function SponsorLogo({
 
   const placeholder = (
     <div
-      className={`${size} flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 text-gray-400 text-xs font-medium text-center px-3 leading-tight`}
+      className={`${size} flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-500 text-xs font-medium text-center px-3 leading-tight`}
     >
       {name}
     </div>

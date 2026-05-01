@@ -41,15 +41,15 @@ export default function Home() {
       </section>
 
       {/* ── Clubs ── */}
-      <section className="bg-gray-50 py-20">
+      <section className="bg-gray-50 dark:bg-gray-950 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 text-center mb-12">
             Explore Our Clubs
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             <Link
               href="/cybersecurity"
-              className="group block bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group block bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="bg-gradient-to-br from-cybersecurity-dark to-cybersecurity-red p-8 flex items-center justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -60,9 +60,9 @@ export default function Home() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-1">{cybersec.name}</h3>
-                <p className="text-cybersecurity-red font-medium italic mb-3">{cybersec.slogan}</p>
-                <p className="text-gray-600 leading-relaxed mb-5">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{cybersec.name}</h3>
+                <p className="text-cybersecurity-red dark:text-red-400 font-medium italic mb-3">{cybersec.slogan}</p>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
                   Learn the art of protecting digital assets through hands-on challenges, CTF
                   competitions, and real-world security scenarios.
                 </p>
@@ -85,7 +85,7 @@ export default function Home() {
 
             <Link
               href="/ComputerScienceClub"
-              className="group block bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group block bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="bg-gradient-to-br from-compsci-purple-dark to-compsci-purple p-8 flex items-center justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -96,9 +96,9 @@ export default function Home() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-1">{compsci.name}</h3>
-                <p className="text-compsci-purple font-medium italic mb-3">{compsci.slogan}</p>
-                <p className="text-gray-600 leading-relaxed mb-5">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{compsci.name}</h3>
+                <p className="text-compsci-purple dark:text-purple-400 font-medium italic mb-3">{compsci.slogan}</p>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
                   Collaborate on innovative projects, compete in programming competitions, and
                   build the future of technology together.
                 </p>
