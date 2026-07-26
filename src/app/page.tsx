@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { config } from '@/lib/cybersecurity'
 import { clubThemes } from '@/lib/clubs'
 
 export default function Home() {
@@ -24,10 +23,6 @@ export default function Home() {
             Empowering students through technology, innovation, and collaboration
           </p>
           <div className="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {/* <div>
-              <div className="text-4xl md:text-5xl font-black text-cybersecurity-gold">2</div>
-              <div className="text-gray-300 text-sm font-medium mt-1">Active Clubs</div>
-            </div> */}
             <div>
               <div className="text-4xl md:text-5xl font-black text-cybersecurity-gold">10+</div>
               <div className="text-gray-300 text-sm font-medium mt-1">Members</div>
@@ -120,33 +115,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="bg-gradient-to-r from-cybersecurity-dark to-compsci-purple-dark py-20">
-        {/* <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Join?</h2>
-          <p className="text-gray-200 text-lg mb-10 max-w-2xl mx-auto">
-            Join us every {config.meeting.day.replace(/s$/, '')} at {config.meeting.time} in{' '}
-            {config.meeting.location} and become part of a thriving community of tech enthusiasts!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={config.discord}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-cybersecurity-gold hover:bg-yellow-400 text-cybersecurity-dark px-8 py-4 rounded-lg font-semibold text-base transition-all duration-200 shadow-lg"
-            >
-              Join Discord
-            </a>
-            <a
-              href={`mailto:${config.email}`}
-              className="inline-flex items-center justify-center border-2 border-white text-white hover:bg-white hover:text-cybersecurity-dark px-8 py-4 rounded-lg font-semibold text-base transition-all duration-200"
-            >
-              Contact Us
-            </a>
-          </div>
-        </div> */}
       </section>
     </div>
   )
