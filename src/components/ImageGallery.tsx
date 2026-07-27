@@ -43,6 +43,9 @@ export default function ImageGallery({
             <StaticImage
               src={image.src}
               alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading="lazy"
               className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
             />
           </button>
@@ -71,6 +74,8 @@ export default function ImageGallery({
             <StaticImage
               src={selected.src}
               alt={selected.alt}
+              width={selected.width}
+              height={selected.height}
               className="w-full max-h-[75vh] object-contain rounded-xl shadow-2xl"
             />
             <p className="mt-4 text-center text-white text-sm font-medium">{selected.alt}</p>
