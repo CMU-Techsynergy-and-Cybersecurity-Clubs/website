@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { clubThemes } from '@/lib/clubs'
+import StaticImage from '@/components/StaticImage'
 
 export default function Home() {
-  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
   const cybersec = clubThemes.cybersecurity
   const compsci = clubThemes.compsci
 
@@ -47,9 +47,8 @@ export default function Home() {
               className="group block bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="bg-gradient-to-br from-cybersecurity-dark to-cybersecurity-red p-8 flex items-center justify-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`${base}${cybersec.logo}`}
+                <StaticImage
+                  src={cybersec.logo}
                   alt={cybersec.name}
                   className="h-32 w-32 object-contain drop-shadow-lg"
                 />
@@ -83,9 +82,8 @@ export default function Home() {
               className="group block bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="bg-gradient-to-br from-compsci-purple-dark to-compsci-purple p-8 flex items-center justify-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`${base}${compsci.logo}`}
+                <StaticImage
+                  src={compsci.logo}
                   alt={compsci.name}
                   className="h-32 w-32 object-contain drop-shadow-lg"
                 />

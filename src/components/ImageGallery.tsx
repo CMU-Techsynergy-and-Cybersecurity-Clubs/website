@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import type { GalleryImage } from '@/lib/types'
+import StaticImage from '@/components/StaticImage'
 
 export type { GalleryImage }
 
@@ -12,7 +13,6 @@ export default function ImageGallery({
   images: GalleryImage[]
   title?: string
 }) {
-  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
   const [selected, setSelected] = useState<GalleryImage | null>(null)
 
   return (
@@ -27,9 +27,8 @@ export default function ImageGallery({
             onClick={() => setSelected(image)}
             className="overflow-hidden rounded-lg shadow-sm bg-gray-100 dark:bg-gray-800 aspect-[4/3] cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 dark:focus:ring-offset-gray-950"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`${base}${image.src}`}
+            <StaticImage
+              src={image.src}
               alt={image.alt}
               className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
             />
@@ -52,9 +51,8 @@ export default function ImageGallery({
             >
               Close ✕
             </button>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`${base}${selected.src}`}
+            <StaticImage
+              src={selected.src}
               alt={selected.alt}
               className="w-full max-h-[75vh] object-contain rounded-xl shadow-2xl"
             />
