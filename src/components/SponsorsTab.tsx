@@ -1,6 +1,6 @@
 import SponsorLogo from '@/components/SponsorLogo'
 import { clubThemes, type ClubKey } from '@/lib/clubs'
-import { tierOrder, type Sponsor, type Tier } from '@/lib/cybersecurity'
+import { tierOrder, type Sponsor, type Tier } from '@/lib/types'
 
 const tierBadge: Record<Tier, string> = {
   Platinum: 'bg-gray-200 text-gray-700',

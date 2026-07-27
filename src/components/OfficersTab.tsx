@@ -1,6 +1,6 @@
 import OfficerAvatar from '@/components/OfficerAvatar'
 import { clubThemes, type ClubKey } from '@/lib/clubs'
-import type { Officer, Advisor } from '@/lib/cybersecurity'
+import type { Officer, Advisor } from '@/lib/types'
 
 export default function OfficersTab({
   theme,

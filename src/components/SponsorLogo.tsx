@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { Tier } from '@/lib/cybersecurity'
+import type { Tier } from '@/lib/types'
 
 const tierSizes: Record<Tier, string> = {
   Platinum: 'w-48 h-24',

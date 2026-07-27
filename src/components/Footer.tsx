@@ -1,10 +1,10 @@
-import { config as cyberConfig } from '@/lib/cybersecurity'
-import { config as compsciConfig } from '@/lib/compsci'
+import { clubData as cyberData } from '@/lib/cybersecurity'
+import { clubData as compsciData } from '@/lib/compsci'
 import { clubThemes, type ClubKey } from '@/lib/clubs'
 
 const configs = {
-  cybersecurity: cyberConfig,
-  compsci: compsciConfig,
+  cybersecurity: cyberData.config,
+  compsci: compsciData.config,
 }
 
 export default function Footer({ theme }: { theme: ClubKey }) {

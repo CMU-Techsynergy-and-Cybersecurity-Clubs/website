@@ -22,6 +22,9 @@ export type ClubTheme = {
   hoverBorder: string
   linkClass: string
   noticeClass: string
+  eventBorderClass: string
+  eventDateClass: string
+  tagBadgeClass: string
 }
 
 export const clubThemes: Record<ClubKey, ClubTheme> = {
@@ -47,6 +50,9 @@ export const clubThemes: Record<ClubKey, ClubTheme> = {
     hoverBorder: 'hover:border-cybersecurity-red/30',
     linkClass: 'text-cybersecurity-red hover:underline',
     noticeClass: 'bg-cybersecurity-gold/10 border-cybersecurity-gold/30',
+    eventBorderClass: 'border-cybersecurity-red',
+    eventDateClass: 'text-cybersecurity-red dark:text-red-400',
+    tagBadgeClass: 'bg-cybersecurity-red/10 text-cybersecurity-red',
   },
   compsci: {
     name: 'Computer Science Club',
@@ -70,5 +76,8 @@ export const clubThemes: Record<ClubKey, ClubTheme> = {
     hoverBorder: 'hover:border-compsci-purple/30',
     linkClass: 'text-compsci-purple hover:underline',
     noticeClass: 'bg-compsci-purple/10 border-compsci-purple/30',
+    eventBorderClass: 'border-compsci-purple',
+    eventDateClass: 'text-compsci-purple dark:text-purple-400',
+    tagBadgeClass: 'bg-compsci-purple/10 text-compsci-purple',
   },
 }

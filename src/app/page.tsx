@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { config } from '@/lib/cybersecurity'
 import { clubThemes } from '@/lib/clubs'
 
 export default function Home() {
