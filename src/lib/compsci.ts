@@ -1,208 +1,188 @@
-import type {
-  FeaturedEvent,
-  Project,
-  Activity,
-  GalleryImage,
-  Officer,
-  Advisor,
-  Sponsor,
-} from '@/lib/cybersecurity'
+import type { ClubData } from '@/lib/types'
+import { sharedClubConfig } from '@/lib/sharedConfig'
 
-export const config = {
-  email: 'jjalonzo-estra@mavs.coloradomesa.edu',
-  discord: 'https://discord.gg/Uyy3Baqxnb',
-  meeting: { day: 'Wednesdays', time: '4:00 PM', location: 'Confluence 110' },
-}
+const config = sharedClubConfig
+const meetingPhrase = `${config.meeting.day.replace(/s$/, '')} at ${config.meeting.time} in ${config.meeting.location}`
 
-export const intro =
-  "The Computer Science Club is Colorado Mesa University's premier club for students passionate about coding, innovation, and technology. We bring together aspiring developers, competitive programmers, and tech enthusiasts to learn, build, and compete together. From ICPC competitions to hackathons to collaborative projects, we're building the next generation of tech leaders."
-
-export const icpc: FeaturedEvent = {
-  emoji: '🏆',
-  title: 'ICPC 2025',
-  date: 'International Collegiate Programming Contest',
-  description:
-    'The Computer Science Club is proud to send competitive teams to the International Collegiate Programming Contest (ICPC), the premier global programming competition for university students. Our teams tackle complex algorithmic challenges and compete against the best programmers worldwide.',
-  highlights: [
+export const clubData: ClubData = {
+  key: 'compsci',
+  config,
+  intro:
+    "The Computer Science Club is Colorado Mesa University's premier club for students passionate about coding, innovation, and technology. We bring together aspiring developers, competitive programmers, and tech enthusiasts to learn, build, and compete together. From ICPC competitions to hackathons to collaborative projects, we're building the next generation of tech leaders.",
+  featuredEvent: {
+    emoji: '🏆',
+    title: 'ICPC 2025',
+    date: 'International Collegiate Programming Contest',
+    description:
+      'The Computer Science Club is proud to send competitive teams to the International Collegiate Programming Contest (ICPC), the premier global programming competition for university students. Our teams tackle complex algorithmic challenges and compete against the best programmers worldwide.',
+    highlights: [
+      {
+        title: 'Algorithmic Problem Solving',
+        desc: 'Master advanced algorithms and data structures',
+      },
+      {
+        title: 'Team Collaboration',
+        desc: 'Work together under pressure to solve challenging problems',
+      },
+      {
+        title: 'Global Competition',
+        desc: 'Compete against top universities from around the world',
+      },
+      {
+        title: 'Career Opportunities',
+        desc: 'Gain recognition from top tech companies',
+      },
+    ],
+  },
+  gallery: [
+    { src: '/icpc/IMG_0640.jpg', alt: 'ICPC 2025 - Team problem solving' },
+    { src: '/icpc/IMG_0641.jpg', alt: 'ICPC 2025 - Coding competition' },
+    { src: '/icpc/IMG_0642.jpg', alt: 'ICPC 2025 - Team collaboration' },
+  ],
+  galleryTitle: 'ICPC 2025 Team',
+  upcomingEvents: [
+    'Weekly Coding Challenges',
+    'Hackathons',
+    'Tech Talks & Workshops',
+    'Programming Competitions',
+    'Industry Networking Events',
+  ],
+  projects: [
     {
-      title: 'Algorithmic Problem Solving',
-      desc: 'Master advanced algorithms and data structures',
+      title: 'Full-Stack Web Applications',
+      description:
+        'Collaborative development of modern web applications using cutting-edge technologies like React, Node.js, and cloud platforms. Members gain hands-on experience with the complete software development lifecycle.',
+      tags: ['React', 'Node.js', 'Cloud'],
     },
     {
-      title: 'Team Collaboration',
-      desc: 'Work together under pressure to solve challenging problems',
+      title: 'AI & Machine Learning',
+      description:
+        'Exploring artificial intelligence and machine learning applications through practical projects. From computer vision to natural language processing, members experiment with cutting-edge AI technologies.',
+      tags: ['Python', 'TensorFlow', 'ML Algorithms'],
     },
     {
-      title: 'Global Competition',
-      desc: 'Compete against top universities from around the world',
+      title: 'Mobile App Development',
+      description:
+        'Creating innovative mobile applications for iOS and Android platforms. Members learn cross-platform development using React Native and Flutter, bringing their app ideas to life.',
+      tags: ['React Native', 'Flutter', 'Mobile UX'],
     },
     {
-      title: 'Career Opportunities',
-      desc: 'Gain recognition from top tech companies',
+      title: 'Game Development',
+      description:
+        'Building interactive games and simulations using modern game engines. Perfect for members interested in game design, graphics programming, and interactive entertainment.',
+      tags: ['Unity', 'C#', 'Game Design'],
+    },
+    {
+      title: 'Blockchain & Cryptocurrencies',
+      description:
+        'Exploring decentralized technologies through smart contract development and blockchain applications. Learn about Web3, DeFi, and the future of distributed systems.',
+      tags: ['Solidity', 'Ethereum', 'Web3'],
+    },
+    {
+      title: 'Open Source Contributions',
+      description:
+        'Contributing to real-world open source projects and building a portfolio that showcases your skills. Learn collaborative development practices used in industry.',
+      tags: ['Git', 'Open Source', 'Collaboration'],
     },
   ],
+  projectsCta: {
+    heading: 'Got an innovative idea?',
+    body: 'We welcome new project proposals! Share your vision at our weekly meetings and find teammates to collaborate with.',
+  },
+  activities: [
+    {
+      title: 'Weekly Coding Sessions',
+      description:
+        'Every Wednesday, we tackle algorithmic challenges, work on projects, and help each other level up our programming skills in a collaborative environment.',
+    },
+    {
+      title: 'Hackathons',
+      description:
+        "Participate in local and national hackathons where you'll build amazing projects in 24-48 hours, win prizes, and network with industry professionals.",
+    },
+    {
+      title: 'Tech Workshops',
+      description:
+        "Hands-on workshops covering modern technologies, frameworks, and tools. From React to Docker, learn the skills that matter in today's tech industry.",
+    },
+    {
+      title: 'Coding Competitions',
+      description:
+        'Prepare for and compete in ICPC, HackerRank contests, LeetCode challenges, and other programming competitions to sharpen your problem-solving skills.',
+    },
+    {
+      title: 'Industry Connections',
+      description:
+        'Network with tech companies through guest speakers, company visits, and recruitment events. Get insights into careers and internship opportunities.',
+    },
+    {
+      title: 'Peer Learning',
+      description:
+        'Collaborate on projects, share knowledge, and learn from each other. From code reviews to pair programming, we grow together as developers.',
+    },
+    {
+      title: 'Innovation Challenges',
+      description:
+        'Participate in innovation sprints where teams brainstorm and prototype solutions to real-world problems using technology.',
+    },
+    {
+      title: 'Tech Book Club',
+      description:
+        'Discuss influential tech books, research papers, and articles. Expand your knowledge beyond coding to understand the broader tech landscape.',
+    },
+  ],
+  closingBanner: {
+    bgClass: 'bg-compsci-purple-dark',
+    titleClass: 'text-white',
+    title: 'Where Innovation Meets Code',
+    textClass: 'text-purple-100',
+    body: `Whether you're a beginner learning your first programming language or an experienced developer working on complex systems, the Computer Science Club has something for you. Join us every ${meetingPhrase}!`,
+  },
+  officers: [
+    // {
+    //   name: 'Example Name',
+    //   role: 'President',
+    //   major: 'Computer Science',
+    //   year: 'Senior',
+    //   bio: 'Short bio goes here.',
+    //   email: 'example@mavs.coloradomesa.edu',
+    //   photo: '/officers/example.jpg',
+    //   linkedin: 'https://www.linkedin.com/in/example/',
+    // },
+    {
+      name: 'Jayden Alonzo-Estrada',
+      role: 'Outgoing President',
+      major: 'Computer Science and Cybersecurity',
+      year: 'Senior',
+      bio: 'Served as club President. Now mentoring incoming leadership to ensure a seamless transition.',
+      email: 'jjalonzo-estra@mavs.coloradomesa.edu',
+      photo: '/cybersecurity/jayden.jpg',
+      linkedin: 'https://www.linkedin.com/in/jayae',
+    },
+    {
+      name: 'Jason Bryant',
+      role: 'President',
+      major: 'Computer Science',
+      year: 'Junior',
+      bio: 'Leading our club in building our student community.',
+      email: 'jebryant@mavs.coloradomesa.edu',
+    },
+    {
+      name: 'Anika Rierson',
+      role: 'Vice President',
+      major: 'Computer Science and Music',
+      year: 'Junior',
+      bio: "Coordinates events and supports the President in executing our club's vision.",
+      email: 'arierson@mavs.coloradomesa.edu',
+    },
+  ],
+  advisor: null,
+  sponsors: [
+    // {
+    //   name: 'Example Sponsor',
+    //   tier: 'Platinum',
+    //   website: 'https://example.com',
+    //   logo: '/sponsors/example.png',
+    // },
+  ],
 }
-
-export const upcomingEvents: string[] = [
-  'Weekly Coding Challenges',
-  'Hackathons',
-  'Tech Talks & Workshops',
-  'Programming Competitions',
-  'Industry Networking Events',
-]
-
-export const projects: Project[] = [
-  {
-    // emoji: '💻',
-    title: 'Full-Stack Web Applications',
-    description:
-      'Collaborative development of modern web applications using cutting-edge technologies like React, Node.js, and cloud platforms. Members gain hands-on experience with the complete software development lifecycle.',
-    tags: ['React', 'Node.js', 'Cloud'],
-  },
-  {
-    // emoji: '🤖',
-    title: 'AI & Machine Learning',
-    description:
-      'Exploring artificial intelligence and machine learning applications through practical projects. From computer vision to natural language processing, members experiment with cutting-edge AI technologies.',
-    tags: ['Python', 'TensorFlow', 'ML Algorithms'],
-  },
-  {
-    // emoji: '📱',
-    title: 'Mobile App Development',
-    description:
-      'Creating innovative mobile applications for iOS and Android platforms. Members learn cross-platform development using React Native and Flutter, bringing their app ideas to life.',
-    tags: ['React Native', 'Flutter', 'Mobile UX'],
-  },
-  {
-    // emoji: '🎮',
-    title: 'Game Development',
-    description:
-      'Building interactive games and simulations using modern game engines. Perfect for members interested in game design, graphics programming, and interactive entertainment.',
-    tags: ['Unity', 'C#', 'Game Design'],
-  },
-  {
-    // emoji: '🔗',
-    title: 'Blockchain & Cryptocurrencies',
-    description:
-      'Exploring decentralized technologies through smart contract development and blockchain applications. Learn about Web3, DeFi, and the future of distributed systems.',
-    tags: ['Solidity', 'Ethereum', 'Web3'],
-  },
-  {
-    // emoji: '🌐',
-    title: 'Open Source Contributions',
-    description:
-      'Contributing to real-world open source projects and building a portfolio that showcases your skills. Learn collaborative development practices used in industry.',
-    tags: ['Git', 'Open Source', 'Collaboration'],
-  },
-]
-
-export const activities: Activity[] = [
-  {
-    // icon: '💻',
-    title: 'Weekly Coding Sessions',
-    description:
-      'Every Wednesday, we tackle algorithmic challenges, work on projects, and help each other level up our programming skills in a collaborative environment.',
-  },
-  {
-    // icon: '🏃',
-    title: 'Hackathons',
-    description:
-      "Participate in local and national hackathons where you'll build amazing projects in 24-48 hours, win prizes, and network with industry professionals.",
-  },
-  {
-    // icon: '📚',
-    title: 'Tech Workshops',
-    description:
-      "Hands-on workshops covering modern technologies, frameworks, and tools. From React to Docker, learn the skills that matter in today's tech industry.",
-  },
-  {
-    // icon: '🎯',
-    title: 'Coding Competitions',
-    description:
-      'Prepare for and compete in ICPC, HackerRank contests, LeetCode challenges, and other programming competitions to sharpen your problem-solving skills.',
-  },
-  {
-    // icon: '👔',
-    title: 'Industry Connections',
-    description:
-      'Network with tech companies through guest speakers, company visits, and recruitment events. Get insights into careers and internship opportunities.',
-  },
-  {
-    // icon: '🤝',
-    title: 'Peer Learning',
-    description:
-      'Collaborate on projects, share knowledge, and learn from each other. From code reviews to pair programming, we grow together as developers.',
-  },
-  {
-    // icon: '🚀',
-    title: 'Innovation Challenges',
-    description:
-      'Participate in innovation sprints where teams brainstorm and prototype solutions to real-world problems using technology.',
-  },
-  {
-    // icon: '📖',
-    title: 'Tech Book Club',
-    description:
-      'Discuss influential tech books, research papers, and articles. Expand your knowledge beyond coding to understand the broader tech landscape.',
-  },
-]
-
-export const officers: Officer[] = [
-  // {
-  //   name: 'Example Name',
-  //   role: 'President',
-  //   major: 'Computer Science',
-  //   year: 'Senior',
-  //   bio: 'Short bio goes here.',
-  //   email: 'example@mavs.coloradomesa.edu',
-  //   photo: '/officers/example.jpg',
-  //   linkedin: 'https://www.linkedin.com/in/example/',
-  // },
-  {
-    name: 'Jayden Alonzo-Estrada',
-    role: 'Outgoing President',
-    major: 'Computer Science and Cybersecurity',
-    year: 'Senior',
-    bio: 'Served as club President. Now mentoring incoming leadership to ensure a seamless transition.',
-    email: 'jjalonzo-estra@mavs.coloradomesa.edu',
-    photo: '/cybersecurity/jayden.jpg',
-    linkedin: 'https://www.linkedin.com/in/jayae',
-  },
-  {
-    name: 'Jason Bryant',
-    role: 'President',
-    major: 'Computer Science',
-    year: 'Junior',
-    bio: 'Leading our club in building our student community.',
-    email: 'jebryant@mavs.coloradomesa.edu',
-    // photo: '/cybersecurity/jayden.jpg',
-    // linkedin: 'https://www.linkedin.com/in/jayae',
-  },
-  {
-    name: 'Anika Rierson',
-    role: 'Vice President',
-    major: 'Computer Science and Music',
-    year: 'Junior',
-    bio: 'Coordinates events and supports the President in executing our club\'s vision.',
-    email: 'arierson@mavs.coloradomesa.edu',
-    // photo: '/cybersecurity/jayden.jpg',
-    // linkedin: 'https://www.linkedin.com/in/jayae',
-  },
-]
-
-export const advisor: Advisor | null = null
-
-export const sponsors: Sponsor[] = [
-  // {
-  //   name: 'Example Sponsor',
-  //   tier: 'Platinum',
-  //   website: 'https://example.com',
-  //   logo: '/sponsors/example.png',
-  // },
-]
-
-export const icpcGallery: GalleryImage[] = [
-  { src: '/icpc/IMG_0640.jpg', alt: 'ICPC 2025 - Team problem solving' },
-  { src: '/icpc/IMG_0641.jpg', alt: 'ICPC 2025 - Coding competition' },
-  { src: '/icpc/IMG_0642.jpg', alt: 'ICPC 2025 - Team collaboration' },
-]

@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import type { GalleryImage } from '@/lib/types'
 
-export type GalleryImage = { src: string; alt: string }
+export type { GalleryImage }
 
 export default function ImageGallery({
   images,
