@@ -17,7 +17,7 @@ npm run build  # static export → ./out
 
 ## Deploy
 
-Pushes to `main` build and deploy automatically via `.github/workflows/deploy.yml`.
+Pushes to `main` are linted, type-checked, built, and deployed automatically via `.github/workflows/deploy.yml`.
 
 The site is served at `https://techclubscmu.com` via GitHub Pages with a custom domain. `public/CNAME` contains the domain so Pages keeps the binding on each deploy.
 
@@ -34,9 +34,9 @@ If deploying under a subpath instead (e.g. `/website` on `*.github.io`), set `NE
 
 ## Structure
 
-- `src/app/` — App Router pages (`/`, `/cybersecurity`, `/techsynergy`)
-- `src/components/` — `Navbar`, `Footer`, `ClubHero`, `TabContainer`, `ImageGallery`
-- `src/lib/` — typed data: `config`, `nav`, `clubs`, `cybersecurity`, `techsynergy`
-- `public/` — logos and event photos served from `/cybersecurity/`, `/techsynergy/`, `/cyber-fair/`, `/icpc/`
+- `src/app/` — App Router pages (`/`, `/cybersecurity`, `/ComputerScienceClub`)
+- `src/components/` — `Navbar`, `Footer`, `ClubPage` (shared page template), `ClubHero`, `TabContainer`, `ImageGallery`, `StaticImage`
+- `src/lib/` — typed data: `clubs`, `compsci`, `cybersecurity`, `nav`, plus shared `types` and `sharedConfig` modules the club data files build on
+- `public/` — logos and event photos served from `/cybersecurity/`, `/compsci/`, `/cyber-fair/`, `/icpc/`
 
 To update content (events, projects, activities, contact info), edit the `src/lib/*.ts` files — pages render straight from there.
