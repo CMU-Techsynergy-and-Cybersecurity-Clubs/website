@@ -35,12 +35,12 @@ export const clubData: ClubData = {
     ],
   },
   gallery: [
-    { src: '/cyber-fair/IMG_1917.jpg', alt: 'Cyber Fair 2025 - Students working on security challenges' },
-    { src: '/cyber-fair/IMG_0501.jpg', alt: 'Cyber Fair 2025 - Hardware hacking station' },
-    { src: '/cyber-fair/IMG_0500.jpg', alt: 'Cyber Fair 2025 - Team collaboration' },
-    { src: '/cyber-fair/IMG_1146.jpg', alt: 'Cyber Fair 2025 - Security demonstration' },
-    { src: '/cyber-fair/IMG_1147.jpg', alt: 'Cyber Fair 2025 - CTF competition' },
-    { src: '/cyber-fair/IMG_1150.jpg', alt: 'Cyber Fair 2025 - Networking activities' },
+    { src: '/cyber-fair/IMG_1917.jpg', alt: 'Cyber Fair 2025 - Students working on security challenges', width: 1600, height: 1200 },
+    { src: '/cyber-fair/IMG_0501.jpg', alt: 'Cyber Fair 2025 - Hardware hacking station', width: 1600, height: 900 },
+    { src: '/cyber-fair/IMG_0500.jpg', alt: 'Cyber Fair 2025 - Team collaboration', width: 1600, height: 900 },
+    { src: '/cyber-fair/IMG_1146.jpg', alt: 'Cyber Fair 2025 - Security demonstration', width: 1600, height: 1200 },
+    { src: '/cyber-fair/IMG_1147.jpg', alt: 'Cyber Fair 2025 - CTF competition', width: 1600, height: 1200 },
+    { src: '/cyber-fair/IMG_1150.jpg', alt: 'Cyber Fair 2025 - Networking activities', width: 1600, height: 2133 },
   ],
   galleryTitle: 'Cyber Fair 2025 Gallery',
   upcomingEvents: [

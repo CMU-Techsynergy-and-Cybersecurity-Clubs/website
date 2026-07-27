@@ -35,9 +35,9 @@ export const clubData: ClubData = {
     ],
   },
   gallery: [
-    { src: '/icpc/IMG_0640.jpg', alt: 'ICPC 2025 - Team problem solving' },
-    { src: '/icpc/IMG_0641.jpg', alt: 'ICPC 2025 - Coding competition' },
-    { src: '/icpc/IMG_0642.jpg', alt: 'ICPC 2025 - Team collaboration' },
+    { src: '/icpc/IMG_0640.jpg', alt: 'ICPC 2025 - Team problem solving', width: 1600, height: 900 },
+    { src: '/icpc/IMG_0641.jpg', alt: 'ICPC 2025 - Coding competition', width: 1600, height: 900 },
+    { src: '/icpc/IMG_0642.jpg', alt: 'ICPC 2025 - Team collaboration', width: 1600, height: 900 },
   ],
   galleryTitle: 'ICPC 2025 Team',
   upcomingEvents: [

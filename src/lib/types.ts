@@ -23,7 +23,7 @@ export type Activity = {
   description: string
 }
 
-export type GalleryImage = { src: string; alt: string }
+export type GalleryImage = { src: string; alt: string; width: number; height: number }
 
 export type Officer = {
   name: string
