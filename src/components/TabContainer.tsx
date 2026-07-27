@@ -17,6 +17,9 @@ export default function TabContainer({
   inactiveClass: string
 }) {
   const [active, setActive] = useState(0)
+  const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+  const tabId = (i: number) => `tab-${slug(tabs[i].label)}`
+  const panelId = 'tabpanel'
 
   return (
     <div>
@@ -24,8 +27,10 @@ export default function TabContainer({
         {tabs.map((tab, i) => (
           <button
             key={tab.label}
+            id={tabId(i)}
             role="tab"
             aria-selected={active === i}
+            aria-controls={panelId}
             onClick={() => setActive(i)}
             className={`px-5 py-3 -mb-px text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 ${
               active === i ? activeClass : inactiveClass
@@ -35,7 +40,7 @@ export default function TabContainer({
           </button>
         ))}
       </div>
-      <div role="tabpanel" className="animate-fade-in">
+      <div id={panelId} role="tabpanel" aria-labelledby={tabId(active)} className="animate-fade-in">
         {tabs[active].content}
       </div>
     </div>

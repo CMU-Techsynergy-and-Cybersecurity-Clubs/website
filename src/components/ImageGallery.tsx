@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { GalleryImage } from '@/lib/types'
 import StaticImage from '@/components/StaticImage'
 
@@ -14,6 +14,19 @@ export default function ImageGallery({
   title?: string
 }) {
   const [selected, setSelected] = useState<GalleryImage | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!selected) return
+
+    closeButtonRef.current?.focus()
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelected(null)
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [selected])
 
   return (
     <div className="my-8">
@@ -38,6 +51,9 @@ export default function ImageGallery({
 
       {selected && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={selected.alt}
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 p-4"
           onClick={() => setSelected(null)}
         >
@@ -46,6 +62,7 @@ export default function ImageGallery({
             onClick={(e) => e.stopPropagation()}
           >
             <button
+              ref={closeButtonRef}
               onClick={() => setSelected(null)}
               className="absolute -top-10 right-0 text-white text-sm font-medium hover:text-gray-300 transition-colors"
             >
