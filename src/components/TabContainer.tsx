@@ -32,7 +32,7 @@ export default function TabContainer({
             aria-selected={active === i}
             aria-controls={panelId}
             onClick={() => setActive(i)}
-            className={`px-5 py-3 -mb-px text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 ${
+            className={`px-5 py-3 -mb-px text-sm md:text-base font-semibold border-b-2 rounded-t-md transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-400 ${
               active === i ? activeClass : inactiveClass
             }`}
           >
@@ -40,7 +40,7 @@ export default function TabContainer({
           </button>
         ))}
       </div>
-      <div id={panelId} role="tabpanel" aria-labelledby={tabId(active)} className="animate-fade-in">
+      <div id={panelId} role="tabpanel" aria-labelledby={tabId(active)} className="animate-fade-in motion-reduce:animate-none">
         {tabs[active].content}
       </div>
     </div>

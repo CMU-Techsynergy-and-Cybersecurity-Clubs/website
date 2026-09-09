@@ -49,7 +49,7 @@ export default function OfficersTab({
                   href={officer.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 flex items-center justify-center gap-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-xs font-medium transition-colors"
+                  className={`${t.roleText} mt-2 flex items-center justify-center gap-1 hover:opacity-80 text-xs font-medium transition-opacity`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -68,8 +68,8 @@ export default function OfficersTab({
       )}
 
       {advisor && (
-        <div className="bg-white dark:bg-gray-900 rounded-xl border-l-4 border-gray-400 dark:border-gray-600 shadow-sm p-6">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">👨‍🏫 Faculty Advisor</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Faculty advisor</h3>
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <div className="flex-shrink-0">
               <OfficerAvatar name={advisor.name} photo={advisor.photo} theme={theme} size="lg" />
@@ -96,9 +96,9 @@ export default function OfficersTab({
         </div>
       )}
 
-      <div className={`${t.noticeClass} border rounded-xl p-5 text-center`}>
+      <div className={`${t.noticeClass} border rounded-xl p-5`}>
         <p className="text-gray-700 dark:text-gray-200 text-sm">
-          🗳️ <strong>Interested in running for office?</strong> Officer elections are held each
+          <strong>Interested in running for office?</strong> Officer elections are held each
           spring semester. Reach out at{' '}
           <a href={`mailto:${contactEmail}`} className={`${t.roleText} font-semibold hover:underline`}>
             {contactEmail}

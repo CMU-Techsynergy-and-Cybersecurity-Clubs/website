@@ -24,8 +24,8 @@ export default function OfficerAvatar({
     .join('')
     .slice(0, 2)
 
-  const sizeClasses = size === 'lg' ? 'w-20 h-20' : 'w-24 h-24'
-  const textClass = size === 'lg' ? 'text-xl' : 'text-2xl'
+  const sizeClasses = size === 'lg' ? 'w-28 h-28' : 'w-24 h-24'
+  const textClass = size === 'lg' ? 'text-3xl' : 'text-2xl'
 
   if (photo && !imgError) {
     return (

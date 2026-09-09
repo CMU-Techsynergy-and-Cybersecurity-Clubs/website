@@ -16,9 +16,9 @@ export default function ClubPage({ data }: { data: ClubData }) {
       label: 'Events',
       content: (
         <div className="space-y-8">
-          <div className={`bg-white dark:bg-gray-900 rounded-xl border-l-4 ${theme.eventBorderClass} shadow-sm p-6`}>
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-              {featuredEvent.emoji ? `${featuredEvent.emoji} ` : ''}{featuredEvent.title}
+              {featuredEvent.title}
             </h3>
             <p className={`${theme.eventDateClass} font-medium text-sm mb-4`}>{featuredEvent.date}</p>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">{featuredEvent.description}</p>
@@ -35,11 +35,10 @@ export default function ClubPage({ data }: { data: ClubData }) {
           <ImageGallery images={data.gallery} title={data.galleryTitle} />
 
           <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Upcoming Events</h3>
-            <ul className="space-y-2">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Upcoming events</h3>
+            <ul className="flex flex-wrap gap-2">
               {data.upcomingEvents.map((e) => (
-                <li key={e} className="flex items-start text-gray-600 dark:text-gray-400">
-                  <span className={`${theme.accentBar} w-1.5 h-1.5 rounded-full mt-2 mr-3 flex-shrink-0`} />
+                <li key={e} className={`${theme.tagBadgeClass} text-sm font-medium px-3 py-1.5 rounded-full`}>
                   {e}
                 </li>
               ))}
@@ -59,7 +58,7 @@ export default function ClubPage({ data }: { data: ClubData }) {
                 className={`bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6 hover:shadow-md ${theme.hoverBorder} transition-all duration-200`}
               >
                 <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
-                  {p.emoji ? `${p.emoji} ` : ''}{p.title}
+                  {p.title}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{p.description}</p>
                 <div className="flex flex-wrap gap-2">
@@ -76,9 +75,9 @@ export default function ClubPage({ data }: { data: ClubData }) {
             ))}
           </div>
 
-          <div className={`${theme.noticeClass} border rounded-xl p-5 text-center`}>
+          <div className={`${theme.noticeClass} border rounded-xl p-5`}>
             <p className="text-gray-700 dark:text-gray-200 text-sm">
-              💡 <strong>{data.projectsCta.heading}</strong> {data.projectsCta.body}
+              <strong>{data.projectsCta.heading}</strong> {data.projectsCta.body}
             </p>
           </div>
         </div>
@@ -88,13 +87,9 @@ export default function ClubPage({ data }: { data: ClubData }) {
       label: 'Activities',
       content: (
         <div className="space-y-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 gap-x-10 gap-y-8">
             {data.activities.map((a) => (
-              <div
-                key={a.title}
-                className={`bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6 hover:shadow-md ${theme.hoverBorder} transition-all duration-200`}
-              >
-                {a.icon && <div className="text-3xl mb-3">{a.icon}</div>}
+              <div key={a.title} className="pt-5 border-t border-gray-200 dark:border-gray-800">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">{a.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{a.description}</p>
               </div>
@@ -133,17 +128,21 @@ export default function ClubPage({ data }: { data: ClubData }) {
 
   return (
     <div>
-      <ClubHero theme={data.key} />
+      <ClubHero
+        theme={data.key}
+        image={data.gallery[0]}
+        discord={data.config.discord}
+        email={data.config.email}
+      />
 
       <section className="bg-white dark:bg-gray-950 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div>
             <div className="mb-10">
-              <div className="flex items-center mb-3">
-                <div className={`h-0.5 w-8 ${theme.accentBar} mr-3`} />
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">About Our Club</h2>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{data.intro}</p>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-4">
+                About the club
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed max-w-[65ch]">{data.intro}</p>
             </div>
 
             <TabContainer

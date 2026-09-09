@@ -7,7 +7,7 @@ import StaticImage from '@/components/StaticImage'
 const meeting = sharedClubConfig.meeting
 
 const primaryCta =
-  'inline-flex items-center h-12 px-6 rounded-lg bg-cyan-400 text-gray-950 font-bold text-[15px] hover:bg-cyan-300 active:translate-y-px transition-colors'
+  'inline-flex items-center h-12 px-6 rounded-lg bg-cyan-400 text-gray-950 font-bold text-[15px] hover:bg-cyan-300 active:translate-y-px transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-gray-900'
 
 function ArrowIcon() {
   return (
@@ -60,7 +60,7 @@ export default function Home() {
                 </a>
                 <a
                   href="#clubs"
-                  className="inline-flex items-center h-12 px-6 rounded-lg border border-white/20 text-gray-100 font-semibold text-[15px] hover:bg-white/5 transition-colors"
+                  className="inline-flex items-center h-12 px-6 rounded-lg border border-white/20 text-gray-100 font-semibold text-[15px] hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                 >
                   See the clubs
                 </a>

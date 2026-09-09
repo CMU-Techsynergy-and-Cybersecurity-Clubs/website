@@ -37,7 +37,7 @@ export default function SponsorsTab({
       {sponsors.length === 0 ? (
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6 text-center">
           <p className="text-gray-500 dark:text-gray-400 italic">
-            We don&apos;t have any sponsors yet — be the first to partner with us!
+            No sponsors yet. Be the first to partner with us.
           </p>
         </div>
       ) : (
@@ -73,7 +73,7 @@ export default function SponsorsTab({
       )}
 
       <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">💼 Sponsorship Benefits</h3>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Sponsorship benefits</h3>
         <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-800">
           <table className="w-full text-sm">
             <thead>
@@ -108,9 +108,9 @@ export default function SponsorsTab({
         </div>
       </div>
 
-      <div className={`${t.noticeClass} border rounded-xl p-5 text-center`}>
+      <div className={`${t.noticeClass} border rounded-xl p-5`}>
         <p className="text-gray-700 dark:text-gray-200 text-sm">
-          🤝 <strong>Interested in sponsoring?</strong> Reach out at{' '}
+          <strong>Interested in sponsoring?</strong> Reach out at{' '}
           <a
             href={`mailto:${contactEmail}`}
             className={`${t.roleText} font-semibold hover:underline`}
