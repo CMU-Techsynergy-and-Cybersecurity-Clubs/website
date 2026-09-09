@@ -10,7 +10,6 @@ export const clubData: ClubData = {
   intro:
     'The Cybersecurity Club at Colorado Mesa University is dedicated to fostering a passion for information security among students. Through hands-on challenges, real-world projects, and collaborative learning, we prepare the next generation of cybersecurity professionals.',
   featuredEvent: {
-    emoji: '🎯',
     title: 'Cyber Fair 2025',
     date: 'Spring 2025',
     description:
@@ -114,7 +113,7 @@ export const clubData: ClubData = {
   closingBanner: {
     bgClass: 'bg-cybersecurity-dark',
     titleClass: 'text-cybersecurity-gold',
-    title: 'Join Us!',
+    title: 'Join us',
     textClass: 'text-gray-200',
     body: `All skill levels welcome - from complete beginners to experienced security enthusiasts. We meet every ${meetingPhrase}.`,
   },

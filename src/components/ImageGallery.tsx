@@ -69,7 +69,7 @@ export default function ImageGallery({
               onClick={() => setSelected(null)}
               className="absolute -top-10 right-0 text-white text-sm font-medium hover:text-gray-300 transition-colors"
             >
-              Close ✕
+              Close
             </button>
             <StaticImage
               src={selected.src}

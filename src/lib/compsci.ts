@@ -10,7 +10,6 @@ export const clubData: ClubData = {
   intro:
     "The Computer Science Club is Colorado Mesa University's premier club for students passionate about coding, innovation, and technology. We bring together aspiring developers, competitive programmers, and tech enthusiasts to learn, build, and compete together. From ICPC competitions to hackathons to collaborative projects, we're building the next generation of tech leaders.",
   featuredEvent: {
-    emoji: '🏆',
     title: 'ICPC 2025',
     date: 'International Collegiate Programming Contest',
     description:
@@ -136,7 +135,7 @@ export const clubData: ClubData = {
     titleClass: 'text-white',
     title: 'Where Innovation Meets Code',
     textClass: 'text-purple-100',
-    body: `Whether you're a beginner learning your first programming language or an experienced developer working on complex systems, the Computer Science Club has something for you. Join us every ${meetingPhrase}!`,
+    body: `Whether you're a beginner learning your first programming language or an experienced developer working on complex systems, the Computer Science Club has something for you. Join us every ${meetingPhrase}.`,
   },
   officers: [
     // {

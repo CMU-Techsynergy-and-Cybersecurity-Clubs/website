@@ -3,7 +3,6 @@ import type { ClubKey } from '@/lib/clubs'
 export type EventHighlight = { title: string; desc: string }
 
 export type FeaturedEvent = {
-  emoji?: string
   title: string
   date: string
   description: string
@@ -11,14 +10,12 @@ export type FeaturedEvent = {
 }
 
 export type Project = {
-  emoji?: string
   title: string
   description: string
   tags: string[]
 }
 
 export type Activity = {
-  icon?: string
   title: string
   description: string
 }
