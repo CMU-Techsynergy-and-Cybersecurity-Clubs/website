@@ -175,7 +175,7 @@ export default function MotionClubPage({ data }: { data: ClubData }) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center rounded-xl border border-white/30 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
               >
-                CMU club page
+                MavLife
               </a>
               <a href={`mailto:${config.email}`} className="text-base font-medium text-white/80 transition-colors hover:text-white">
                 Email us
@@ -482,7 +482,7 @@ export default function MotionClubPage({ data }: { data: ClubData }) {
               rel="noopener noreferrer"
               className="inline-flex items-center rounded-xl border border-white/30 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10"
             >
-              CMU club page
+              MavLife
             </a>
           </div>
         </div>
@@ -505,7 +505,7 @@ export default function MotionClubPage({ data }: { data: ClubData }) {
                 Discord
               </a>
               <a href={t.campusGroupsUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-gray-300 transition-colors hover:text-white">
-                CampusGroups
+                MavLife
               </a>
               <a href={`mailto:${config.email}`} className="text-sm font-medium text-gray-300 transition-colors hover:text-white">
                 Email

@@ -54,7 +54,7 @@ export default function Footer({ theme }: { theme: ClubKey }) {
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
               >
-                CMU club page on CampusGroups
+                MavLife page
               </a>
             </p>
           </div>

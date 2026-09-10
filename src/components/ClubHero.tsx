@@ -48,7 +48,7 @@ export default function ClubHero({
                 rel="noopener noreferrer"
                 className="inline-flex items-center h-12 px-6 rounded-lg border border-white/25 text-white font-semibold text-[15px] hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
               >
-                CMU club page
+                MavLife
               </a>
               <a
                 href={`mailto:${email}`}
