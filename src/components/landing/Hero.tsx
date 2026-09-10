@@ -16,7 +16,6 @@ export default function Hero() {
           .timeline({ defaults: { ease: 'power3.out' } })
           .from('[data-hero-bg]', { scale: 1.12, duration: 2.4, ease: 'power2.out' }, 0)
           .from('[data-hero-word]', { yPercent: 110, opacity: 0, duration: 1, stagger: 0.07 }, 0.2)
-          .from('[data-hero-pill]', { scaleX: 0, duration: 0.9, ease: 'expo.out' }, 0.7)
           .from('[data-hero-fade]', { y: 24, opacity: 0, duration: 0.9, stagger: 0.12 }, 0.9)
       })
     },
@@ -52,12 +51,6 @@ export default function Hero() {
             ))}
           </span>
           <span className="block overflow-hidden pb-[0.08em]">
-            <span
-              data-hero-pill
-              className="mx-[0.15em] mb-[0.08em] inline-block h-[0.62em] w-[1.9em] origin-left rounded-full bg-cover bg-center align-middle grayscale contrast-125 saturate-50"
-              style={{ backgroundImage: `url(${withBasePath('/icpc/IMG_0640.jpg')})` }}
-              aria-hidden="true"
-            />
             {line2.map((w) => (
               <span key={w} className="mr-[0.22em] inline-block last:mr-0">
                 <span data-hero-word className="inline-block">{w}</span>
