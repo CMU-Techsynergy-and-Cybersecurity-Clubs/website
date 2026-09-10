@@ -36,7 +36,7 @@ If deploying under a subpath instead (e.g. `/website` on `*.github.io`), set `NE
 
 - `src/app/` — App Router pages (`/`, `/cybersecurity`, `/ComputerScienceClub`)
 - `src/components/` — `Navbar` (floating glass pill), `Footer`, `ClubPage` (shared page template), `ClubHero`, `TabContainer`, `ImageGallery`, `StaticImage`
-- `src/components/landing/` — landing page sections (`Hero`, `Marquee`, `Bento`, `ScrubText`, `ClubsSplit`, `FinalCta`); scroll motion runs on GSAP ScrollTrigger and is disabled under `prefers-reduced-motion`
+- `src/components/landing/` — landing page sections (`Hero`, `Marquee`, `Bento`, `ScrubText`, `ClubsSplit`, `FinalCta`); scroll motion runs on GSAP ScrollTrigger and is disabled under `prefers-reduced-motion`. `LandingSwitch` picks between this motion layout (default) and `ClassicLanding`, the previous page, based on the layout toggle in the navbar (`LayoutProvider`, persisted in `localStorage` like the theme). Classic mode also swaps the pill navbar for `ClassicNavbar`.
 - `src/lib/` — typed data: `clubs`, `compsci`, `cybersecurity`, `nav`, plus shared `types` and `sharedConfig` modules the club data files build on, and `gsap` (plugin registration)
 - `public/` — logos and event photos served from `/cybersecurity/`, `/compsci/`, `/cyber-fair/`, `/icpc/`
 

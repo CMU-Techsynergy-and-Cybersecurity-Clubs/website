@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import ThemeProvider from '@/components/ThemeProvider'
+import LayoutProvider from '@/components/LayoutProvider'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://techclubscmu.com'),
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={GeistSans.variable}>
-      <script dangerouslySetInnerHTML={{ __html: `(function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark')})()` }} />
+      <script dangerouslySetInnerHTML={{ __html: `(function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark');if(localStorage.getItem('layout')==='classic')document.documentElement.classList.add('classic')})()` }} />
       <body className="font-sans flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
         <a
           href="#main"
@@ -29,8 +30,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <ThemeProvider>
-          <Navbar />
-          <main id="main" className="-mt-20 flex-1 overflow-x-hidden w-full max-w-full">{children}</main>
+          <LayoutProvider>
+            <Navbar />
+            <main id="main" className="-mt-20 flex-1 overflow-x-hidden w-full max-w-full classic:mt-0">{children}</main>
+          </LayoutProvider>
         </ThemeProvider>
       </body>
     </html>

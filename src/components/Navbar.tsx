@@ -6,8 +6,29 @@ import { useState } from 'react'
 import { navLinks } from '@/lib/nav'
 import { sharedClubConfig } from '@/lib/sharedConfig'
 import { useTheme } from '@/components/ThemeProvider'
+import { useLayout } from '@/components/LayoutProvider'
+import LayoutToggle from '@/components/LayoutToggle'
+import ClassicNavbar from '@/components/ClassicNavbar'
+
+const iconButton = 'rounded-full p-2 text-gray-300 transition-colors hover:bg-white/10 hover:text-white'
 
 export default function Navbar() {
+  const { layout } = useLayout()
+
+  return (
+    <header className="sticky top-0 z-50 h-20 pointer-events-none">
+      {layout === 'classic' ? (
+        <div className="pointer-events-auto">
+          <ClassicNavbar />
+        </div>
+      ) : (
+        <PillNavbar />
+      )}
+    </header>
+  )
+}
+
+function PillNavbar() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const { theme, toggleTheme } = useTheme()
@@ -18,7 +39,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 h-20 pointer-events-none">
+    <>
       <nav
         aria-label="Primary"
         className="pointer-events-auto mx-auto mt-4 w-[calc(100%-2rem)] max-w-5xl rounded-full border border-white/10 bg-gray-950/70 text-white shadow-2xl shadow-black/30 backdrop-blur-xl supports-[backdrop-filter]:bg-gray-950/55"
@@ -41,6 +62,7 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <LayoutToggle className={iconButton} />
             <ThemeToggle theme={theme} onToggle={toggleTheme} />
             <a
               href={sharedClubConfig.discord}
@@ -53,6 +75,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-1 md:hidden">
+            <LayoutToggle className={iconButton} />
             <ThemeToggle theme={theme} onToggle={toggleTheme} />
             <button
               className="rounded-full p-2 text-white transition-colors hover:bg-white/10"
@@ -100,7 +123,7 @@ export default function Navbar() {
           </a>
         </div>
       )}
-    </header>
+    </>
   )
 }
 
