@@ -35,8 +35,9 @@ If deploying under a subpath instead (e.g. `/website` on `*.github.io`), set `NE
 ## Structure
 
 - `src/app/` — App Router pages (`/`, `/cybersecurity`, `/ComputerScienceClub`)
-- `src/components/` — `Navbar`, `Footer`, `ClubPage` (shared page template), `ClubHero`, `TabContainer`, `ImageGallery`, `StaticImage`
-- `src/lib/` — typed data: `clubs`, `compsci`, `cybersecurity`, `nav`, plus shared `types` and `sharedConfig` modules the club data files build on
+- `src/components/` — `Navbar` (floating glass pill), `Footer`, `ClubPage` (shared page template), `ClubHero`, `TabContainer`, `ImageGallery`, `StaticImage`
+- `src/components/landing/` — landing page sections (`Hero`, `Marquee`, `Bento`, `ScrubText`, `ClubsSplit`, `FinalCta`); scroll motion runs on GSAP ScrollTrigger and is disabled under `prefers-reduced-motion`
+- `src/lib/` — typed data: `clubs`, `compsci`, `cybersecurity`, `nav`, plus shared `types` and `sharedConfig` modules the club data files build on, and `gsap` (plugin registration)
 - `public/` — logos and event photos served from `/cybersecurity/`, `/compsci/`, `/cyber-fair/`, `/icpc/`
 
 To update content (events, projects, activities, contact info), edit the `src/lib/*.ts` files — pages render straight from there.

@@ -16,7 +16,7 @@ export default function ClubHero({
   const t = clubThemes[theme]
 
   return (
-    <section className={`${t.heroBg} py-14 md:py-24`}>
+    <section className={`${t.heroBg} pb-14 pt-32 md:pb-24 md:pt-40`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-11 gap-10 md:gap-16 items-center">
           <div className="md:col-span-6 flex flex-col items-start gap-6">
