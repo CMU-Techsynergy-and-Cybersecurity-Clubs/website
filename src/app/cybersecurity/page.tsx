@@ -1,6 +1,6 @@
-import ClubPage from '@/components/ClubPage'
+import ClubPageSwitch from '@/components/club/ClubPageSwitch'
 import { clubData } from '@/lib/cybersecurity'
 
 export default function CybersecurityPage() {
-  return <ClubPage data={clubData} />
+  return <ClubPageSwitch data={clubData} />
 }

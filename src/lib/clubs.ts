@@ -5,6 +5,7 @@ export type ClubTheme = {
   slogan: string
   logo: string
   basePath: string
+  campusGroupsUrl: string
   heroBg: string
   headerBg: string
   titleClass: string
@@ -33,6 +34,7 @@ export const clubThemes: Record<ClubKey, ClubTheme> = {
     slogan: 'Protecting the Digital Frontier',
     logo: '/cybersecurity/CyberSecLogoComplex.png',
     basePath: '/cybersecurity',
+    campusGroupsUrl: 'https://coloradomesa.campusgroups.com/feeds?type=club&type_id=35486&tab=about',
     heroBg: 'bg-gradient-to-br from-cybersecurity-dark to-cybersecurity-red',
     headerBg: 'bg-gradient-to-br from-cybersecurity-dark to-cybersecurity-red',
     titleClass: 'text-cybersecurity-gold',
@@ -59,6 +61,7 @@ export const clubThemes: Record<ClubKey, ClubTheme> = {
     slogan: 'Purpose Driven Programming',
     logo: '/compsci/TechSynergyLogoMinimalist.png',
     basePath: '/ComputerScienceClub',
+    campusGroupsUrl: 'https://coloradomesa.campusgroups.com/feeds?type=club&type_id=35587&tab=about',
     heroBg: 'bg-gradient-to-br from-compsci-purple-dark to-compsci-purple',
     headerBg: 'bg-compsci-purple-dark',
     titleClass: 'text-white',

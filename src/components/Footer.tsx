@@ -47,6 +47,16 @@ export default function Footer({ theme }: { theme: ClubKey }) {
                 Join our Discord
               </a>
             </p>
+            <p className="text-gray-300 text-sm mt-2">
+              <a
+                href={t.campusGroupsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                MavLife page
+              </a>
+            </p>
           </div>
 
           <div>
