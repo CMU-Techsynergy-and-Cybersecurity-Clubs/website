@@ -1,47 +1,56 @@
 'use client'
 
 import Link from 'next/link'
-import { useRef } from 'react'
-import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap'
-import { withBasePath } from '@/lib/basePath'
+import { useEffect, useRef, useState } from 'react'
+import { gsap, useGSAP } from '@/lib/gsap'
 import { clubThemes, type ClubKey } from '@/lib/clubs'
 import { navLinks } from '@/lib/nav'
 import { tierOrder, type ClubData, type Tier } from '@/lib/types'
 import StaticImage from '@/components/StaticImage'
+import ImageGallery from '@/components/ImageGallery'
 import OfficerAvatar from '@/components/OfficerAvatar'
 import SponsorLogo from '@/components/SponsorLogo'
 
 type Palette = {
-  wash: string
-  glow: string
+  surface: string
   accentText: string
-  accentBg: string
-  accentBgHover: string
-  onAccent: string
+  accentBar: string
+  cta: string
+  ctaText: string
+  tabActive: string
+  tabActiveText: string
+  tabBar: string
+  chip: string
+  cardTop: string
   ring: string
-  tint: string
 }
 
 const palettes: Record<ClubKey, Palette> = {
   cybersecurity: {
-    wash: 'from-cybersecurity-red/70 via-gray-950/70 to-gray-950',
-    glow: 'bg-cybersecurity-red/30',
+    surface: 'bg-gradient-to-br from-cybersecurity-dark via-[#3a1a2e] to-cybersecurity-red',
     accentText: 'text-cybersecurity-gold',
-    accentBg: 'bg-cybersecurity-gold',
-    accentBgHover: 'hover:bg-yellow-300',
-    onAccent: 'text-gray-950',
+    accentBar: 'bg-cybersecurity-red',
+    cta: 'bg-cybersecurity-gold hover:bg-yellow-300',
+    ctaText: 'text-cybersecurity-dark',
+    tabActive: 'bg-cybersecurity-red',
+    tabActiveText: 'text-white',
+    tabBar: 'bg-cybersecurity-dark',
+    chip: 'bg-cybersecurity-red/10 text-cybersecurity-red dark:bg-cybersecurity-red/20 dark:text-red-300',
+    cardTop: 'border-t-cybersecurity-red',
     ring: 'focus-visible:ring-cybersecurity-gold',
-    tint: 'bg-cybersecurity-red',
   },
   compsci: {
-    wash: 'from-compsci-purple/80 via-gray-950/70 to-gray-950',
-    glow: 'bg-compsci-purple/40',
-    accentText: 'text-purple-300',
-    accentBg: 'bg-white',
-    accentBgHover: 'hover:bg-purple-200',
-    onAccent: 'text-compsci-purple-dark',
-    ring: 'focus-visible:ring-purple-300',
-    tint: 'bg-compsci-purple',
+    surface: 'bg-gradient-to-br from-compsci-purple-dark via-[#4a2f75] to-compsci-purple',
+    accentText: 'text-purple-200',
+    accentBar: 'bg-compsci-purple',
+    cta: 'bg-white hover:bg-purple-100',
+    ctaText: 'text-compsci-purple-dark',
+    tabActive: 'bg-compsci-purple',
+    tabActiveText: 'text-white',
+    tabBar: 'bg-compsci-purple-dark',
+    chip: 'bg-compsci-purple/10 text-compsci-purple dark:bg-compsci-purple/25 dark:text-purple-200',
+    cardTop: 'border-t-compsci-purple',
+    ring: 'focus-visible:ring-purple-200',
   },
 }
 
@@ -62,353 +71,289 @@ const benefits: { label: string; tiers: [Cell, Cell, Cell, Cell] }[] = [
   { label: 'Company presentation', tiers: [true, false, false, false] },
 ]
 
-const sectionTitle = 'max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl'
-const sectionLead = 'max-w-md text-lg leading-relaxed text-gray-600 dark:text-gray-400'
-const pillButton =
-  'inline-flex h-14 items-center rounded-full px-8 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950'
-const ghostButton =
-  'inline-flex h-14 items-center rounded-full border border-white/25 bg-white/5 px-8 text-base font-semibold text-white backdrop-blur transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80'
+const sections = [
+  { id: 'events', label: 'Events' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'activities', label: 'Activities' },
+  { id: 'officers', label: 'Officers' },
+  { id: 'sponsors', label: 'Sponsors' },
+] as const
+
+type SectionId = (typeof sections)[number]['id']
+
+const card =
+  'rounded-2xl border border-gray-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-gray-900'
 
 export default function MotionClubPage({ data }: { data: ClubData }) {
   const scope = useRef<HTMLDivElement>(null)
+  const [active, setActive] = useState<SectionId>('events')
   const t = clubThemes[data.key]
   const p = palettes[data.key]
   const { featuredEvent, config } = data
   const heroImage = data.gallery[0]
-  const eventImage = data.gallery[1] ?? data.gallery[0]
-  const bandImages = data.gallery.slice(2, 5)
   const meetingDay = config.meeting.day.replace(/s$/, '')
+
+  useEffect(() => {
+    const els = sections
+      .map((s) => document.getElementById(s.id))
+      .filter((el): el is HTMLElement => el !== null)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+        if (visible[0]) setActive(visible[0].target.id as SectionId)
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    )
+    els.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia()
-      mm.add(
-        {
-          motion: '(prefers-reduced-motion: no-preference)',
-          desktop: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)',
-        },
-        (ctx) => {
-          const { desktop } = ctx.conditions as { desktop: boolean }
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap
+          .timeline({ defaults: { ease: 'power3.out' } })
+          .from('[data-hero-text]', { y: 40, opacity: 0, duration: 0.9, stagger: 0.1 }, 0.1)
+          .from('[data-hero-card]', { x: 60, opacity: 0, rotate: 4, duration: 1.2, ease: 'expo.out' }, 0.3)
 
-          gsap
-            .timeline({ defaults: { ease: 'power3.out' } })
-            .from('[data-hero-bg]', { scale: 1.12, duration: 2.4, ease: 'power2.out' }, 0)
-            .from('[data-hero-word]', { yPercent: 110, opacity: 0, duration: 1, stagger: 0.08 }, 0.2)
-            .from('[data-hero-fade]', { y: 24, opacity: 0, duration: 0.9, stagger: 0.12 }, 0.8)
-
-          gsap.fromTo(
-            '[data-scrub-word]',
-            { opacity: 0.1 },
-            {
-              opacity: 1,
-              stagger: 0.4,
-              ease: 'none',
-              scrollTrigger: { trigger: '[data-scrub]', start: 'top 70%', end: 'bottom 45%', scrub: true },
-            },
-          )
-
-          gsap.utils.toArray<HTMLElement>('[data-reveal-group]').forEach((group) => {
-            gsap.from(group.querySelectorAll('[data-reveal]'), {
-              y: 60,
-              opacity: 0,
-              duration: 1,
-              ease: 'power3.out',
-              stagger: 0.1,
-              scrollTrigger: { trigger: group, start: 'top 78%' },
-            })
+        gsap.utils.toArray<HTMLElement>('[data-reveal-group]').forEach((group) => {
+          gsap.from(group.querySelectorAll('[data-reveal]'), {
+            y: 40,
+            opacity: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            stagger: 0.08,
+            scrollTrigger: { trigger: group, start: 'top 80%' },
           })
-
-          gsap.utils.toArray<HTMLElement>('[data-scale-img]').forEach((el) => {
-            gsap.fromTo(
-              el,
-              { scale: 0.8, opacity: 0.4 },
-              {
-                scale: 1,
-                opacity: 1,
-                ease: 'none',
-                scrollTrigger: { trigger: el, start: 'top 95%', end: 'center 55%', scrub: true },
-              },
-            )
-            gsap.to(el, {
-              opacity: 0.2,
-              ease: 'none',
-              scrollTrigger: { trigger: el, start: 'center 30%', end: 'bottom top', scrub: true },
-            })
-          })
-
-          if (desktop) {
-            gsap.utils.toArray<HTMLElement>('[data-pin]').forEach((el) => {
-              const container = el.closest('[data-pin-container]') as HTMLElement | null
-              if (!container) return
-              ScrollTrigger.create({
-                trigger: container,
-                start: 'top 112px',
-                end: 'bottom bottom',
-                pin: el,
-                pinSpacing: false,
-              })
-            })
-          }
-        },
-      )
+        })
+      })
     },
     { scope },
   )
 
   return (
-    <div ref={scope} className="text-gray-900 dark:text-gray-100">
-      <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-gray-950 text-white">
-        {heroImage && (
-          <div
-            data-hero-bg
-            className="absolute inset-0 bg-cover bg-center grayscale contrast-125 opacity-50"
-            style={{ backgroundImage: `url(${withBasePath(heroImage.src)})` }}
-            role="img"
-            aria-label={heroImage.alt}
-          />
-        )}
-        <div className={`absolute inset-0 bg-gradient-to-b ${p.wash}`} />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(3,7,18,0)_0%,rgba(3,7,18,0.7)_60%,rgba(3,7,18,1)_100%)]" />
-        <div className="grain absolute inset-0" aria-hidden="true" />
+    <div ref={scope} className="bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+      <section className={`relative overflow-hidden ${p.surface} text-white`}>
+        <div className="pointer-events-none absolute -right-40 -top-40 h-[32rem] w-[32rem] rounded-full bg-white/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-black/30 blur-3xl" />
 
-        <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-6 pb-24 pt-40 text-center sm:px-8">
-          <div data-hero-fade className="mb-8 h-20 w-20 overflow-hidden rounded-2xl border border-white/15 shadow-2xl shadow-black/40 sm:h-24 sm:w-24">
-            <StaticImage src={t.logo} alt={`${t.name} logo`} className="h-full w-full object-cover" />
-          </div>
-          <h1
-            className="mx-auto w-full max-w-6xl font-semibold leading-[0.98] tracking-[-0.035em]"
-            style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}
-          >
-            <span className="block overflow-hidden pb-[0.08em]">
-              {t.name.split(' ').map((w) => (
-                <span key={w} className="mr-[0.22em] inline-block last:mr-0">
-                  <span data-hero-word className="inline-block">{w}</span>
-                </span>
-              ))}
-            </span>
-          </h1>
-          <p data-hero-fade className={`mt-6 text-xl font-medium sm:text-2xl ${p.accentText}`}>
-            {t.slogan}
-          </p>
-          <div data-hero-fade className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href={config.discord}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${pillButton} ${p.accentBg} ${p.accentBgHover} ${p.onAccent} ${p.ring}`}
+        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-40 lg:grid-cols-12 lg:gap-10">
+          <div className="flex flex-col items-start gap-7 lg:col-span-7">
+            <div data-hero-text className="flex items-center gap-4">
+              <StaticImage
+                src={t.logo}
+                alt={`${t.name} logo`}
+                className="h-16 w-16 rounded-xl border border-white/15 object-cover shadow-lg sm:h-20 sm:w-20"
+              />
+              <p className={`text-lg font-medium sm:text-xl ${p.accentText}`}>{t.slogan}</p>
+            </div>
+            <h1
+              data-hero-text
+              className="max-w-4xl font-black leading-[0.95] tracking-[-0.04em]"
+              style={{ fontSize: 'clamp(3rem, 7.5vw, 6.5rem)' }}
             >
-              Join the Discord
-            </a>
-            <a href={t.campusGroupsUrl} target="_blank" rel="noopener noreferrer" className={ghostButton}>
-              CMU club page
-            </a>
-            <a
-              href={`mailto:${config.email}`}
-              className="text-base font-medium text-white/80 transition-colors hover:text-white"
-            >
-              Email us
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section data-scrub className="bg-gray-50 py-32 md:py-48 dark:bg-gray-900">
-        <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <p className="text-3xl font-medium leading-[1.2] tracking-[-0.02em] sm:text-4xl md:text-5xl lg:text-[3.5rem]">
-            {data.intro.split(' ').map((word, i) => (
-              <span key={i} data-scrub-word className="mr-[0.25em] inline-block">
-                {word}
-              </span>
-            ))}
-          </p>
-        </div>
-      </section>
-
-      <section className="bg-white py-32 md:py-48 dark:bg-gray-950">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8" data-reveal-group>
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className={sectionTitle}>{featuredEvent.title}</h2>
-            <p className={sectionLead}>{featuredEvent.date}</p>
+              {t.name}
+            </h1>
+            <p data-hero-text className="max-w-xl text-lg leading-relaxed text-white/85 sm:text-xl">
+              {data.intro}
+            </p>
+            <div data-hero-text className="flex flex-wrap items-center gap-4">
+              <a
+                href={config.discord}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex h-13 items-center rounded-xl px-7 py-3.5 text-base font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${p.cta} ${p.ctaText} ${p.ring}`}
+              >
+                Join the Discord
+              </a>
+              <a
+                href={t.campusGroupsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-xl border border-white/30 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+              >
+                CMU club page
+              </a>
+              <a href={`mailto:${config.email}`} className="text-base font-medium text-white/80 transition-colors hover:text-white">
+                Email us
+              </a>
+            </div>
+            <dl data-hero-text className="mt-2 grid w-full max-w-xl grid-cols-2 gap-6 border-t border-white/20 pt-6">
+              <div>
+                <dt className="text-sm text-white/60">Meets</dt>
+                <dd className="mt-1 text-lg font-semibold">
+                  {config.meeting.day}, {config.meeting.time}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-sm text-white/60">Where</dt>
+                <dd className="mt-1 text-lg font-semibold">{config.meeting.location}</dd>
+              </div>
+            </dl>
           </div>
 
-          <div className="mt-16 grid grid-cols-1 gap-4 md:grid-flow-dense md:grid-cols-6 md:auto-rows-[240px]">
-            <div
-              data-reveal
-              className="group relative overflow-hidden rounded-3xl bg-gray-900 text-white md:col-span-4 md:row-span-2"
-            >
-              {eventImage && (
-                <div
-                  className="absolute inset-0 bg-cover bg-center opacity-80 mix-blend-luminosity transition-transform duration-700 ease-out group-hover:scale-105"
-                  style={{ backgroundImage: `url(${withBasePath(eventImage.src)})` }}
+          {heroImage && (
+            <div data-hero-card className="lg:col-span-5">
+              <div className="rotate-2 overflow-hidden rounded-3xl border border-white/15 shadow-2xl shadow-black/40 transition-transform duration-700 ease-out hover:rotate-0">
+                <StaticImage
+                  src={heroImage.src}
+                  alt={heroImage.alt}
+                  width={heroImage.width}
+                  height={heroImage.height}
+                  className="aspect-[4/5] w-full object-cover lg:aspect-[4/5]"
                 />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/50 to-transparent" />
-              <div className="relative flex h-full min-h-[360px] flex-col justify-end p-8 md:p-10">
-                <p className="max-w-xl text-lg leading-relaxed text-gray-200 sm:text-xl">{featuredEvent.description}</p>
               </div>
             </div>
+          )}
+        </div>
+      </section>
 
-            {featuredEvent.highlights.map((h, i) => (
-              <div
-                key={h.title}
-                data-reveal
-                className={`relative flex flex-col justify-end overflow-hidden rounded-3xl border border-gray-200 bg-gray-50 p-8 dark:border-white/10 dark:bg-gray-900 ${
-                  i < 2 ? 'md:col-span-2' : 'md:col-span-3'
+      <nav
+        aria-label="Club sections"
+        className={`sticky top-20 z-40 ${p.tabBar} text-white shadow-lg shadow-black/20`}
+      >
+        <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8" role="tablist">
+          {sections.map((s) => {
+            const isActive = active === s.id
+            return (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                role="tab"
+                aria-selected={isActive}
+                aria-current={isActive ? 'location' : undefined}
+                onClick={() => setActive(s.id)}
+                className={`whitespace-nowrap rounded-full px-5 py-2.5 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
+                  isActive ? `${p.tabActive} ${p.tabActiveText} shadow-md` : 'text-white/75 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                <div className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full ${p.glow} blur-3xl`} />
-                <h3 className="relative text-2xl font-semibold leading-snug tracking-tight">{h.title}</h3>
-                <p className="relative mt-4 text-base text-gray-600 dark:text-gray-400">{h.desc}</p>
-              </div>
-            ))}
+                {s.label}
+              </a>
+            )
+          })}
+        </div>
+      </nav>
+
+      <section id="events" className="scroll-mt-40 py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8" data-reveal-group>
+          <SectionHeading bar={p.accentBar} title={featuredEvent.title} lead={featuredEvent.date} />
+
+          <div className="mt-12 grid gap-10 lg:grid-cols-12">
+            <div data-reveal className="lg:col-span-5">
+              <p className="text-xl leading-relaxed text-gray-700 dark:text-gray-300">{featuredEvent.description}</p>
+              <h3 className="mt-10 text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+                Upcoming
+              </h3>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {data.upcomingEvents.map((e) => (
+                  <li key={e} className={`rounded-full px-4 py-2 text-sm font-semibold ${p.chip}`}>
+                    {e}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+              {featuredEvent.highlights.map((h) => (
+                <div key={h.title} data-reveal className={`${card} border-t-4 ${p.cardTop}`}>
+                  <h3 className="text-xl font-bold leading-snug tracking-tight">{h.title}</h3>
+                  <p className="mt-3 text-base text-gray-600 dark:text-gray-400">{h.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div data-reveal className="mt-8">
+            <ImageGallery images={data.gallery} title={data.galleryTitle} />
           </div>
         </div>
       </section>
 
-      {bandImages.length > 0 && (
-        <section className="bg-gray-50 py-32 md:py-48 dark:bg-gray-900">
-          <div data-pin-container className="mx-auto grid max-w-7xl gap-16 px-6 sm:px-8 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-4">
-              <div data-pin className="flex flex-col gap-6">
-                <h2 className={sectionTitle}>{data.galleryTitle}</h2>
-                <p className={sectionLead}>Photos from the room where it happens.</p>
-              </div>
-            </div>
-            <div className="flex flex-col gap-24 lg:col-span-8">
-              {bandImages.map((img, i) => (
-                <figure key={img.src} data-scale-img className={`overflow-hidden rounded-3xl ${i % 2 === 0 ? 'lg:mr-16' : 'lg:ml-16'}`}>
-                  <StaticImage
-                    src={img.src}
-                    alt={img.alt}
-                    width={img.width}
-                    height={img.height}
-                    loading="lazy"
-                    className="aspect-[16/10] w-full object-cover contrast-125 saturate-[0.85]"
-                  />
-                </figure>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="bg-white py-32 md:py-48 dark:bg-gray-950">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className={sectionTitle}>What we build.</h2>
-            <p className={sectionLead}>{data.projectsCta.body}</p>
-          </div>
-
-          <div className="mt-16 flex flex-col gap-6">
-            {data.projects.map((project, i) => (
-              <article
-                key={project.title}
-                className="sticky overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 shadow-2xl shadow-black/5 md:p-12 dark:border-white/10 dark:bg-gray-900 dark:shadow-black/40"
-                style={{ top: `${7 + i * 1.25}rem` }}
-              >
-                <div className={`pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full ${p.glow} blur-3xl`} />
-                <div className="relative grid gap-8 md:grid-cols-12">
-                  <h3 className="text-3xl font-semibold leading-tight tracking-tight md:col-span-5 md:text-4xl">{project.title}</h3>
-                  <div className="md:col-span-7">
-                    <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-400">{project.description}</p>
-                    <ul className="mt-6 flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <li
-                          key={tag}
-                          className="rounded-full border border-gray-300 px-3 py-1 text-sm font-medium text-gray-700 dark:border-white/15 dark:text-gray-300"
-                        >
-                          {tag}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+      <section id="projects" className="scroll-mt-40 bg-gray-50 py-20 md:py-28 dark:bg-gray-900">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8" data-reveal-group>
+          <SectionHeading bar={p.accentBar} title="Projects" lead={`${data.projectsCta.heading} ${data.projectsCta.body}`} />
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {data.projects.map((project) => (
+              <article key={project.title} data-reveal className={`${card} flex flex-col border-t-4 ${p.cardTop}`}>
+                <h3 className="text-2xl font-bold leading-tight tracking-tight">{project.title}</h3>
+                <p className="mt-4 flex-1 text-base leading-relaxed text-gray-600 dark:text-gray-400">{project.description}</p>
+                <ul className="mt-6 flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <li key={tag} className={`rounded-full px-3 py-1 text-xs font-semibold ${p.chip}`}>
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <div className="relative overflow-hidden border-y border-gray-200 bg-white py-6 dark:border-white/10 dark:bg-gray-950">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent dark:from-gray-950" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent dark:from-gray-950" />
-        <div className="animate-marquee flex w-max items-center gap-10 whitespace-nowrap" aria-hidden="true">
-          {[...data.upcomingEvents, ...data.upcomingEvents].map((label, i) => (
-            <span key={`${label}-${i}`} className="flex items-center gap-10 text-2xl font-medium tracking-tight text-gray-400 sm:text-3xl dark:text-gray-500">
-              {label}
-              <span className={`h-1.5 w-1.5 rounded-full ${p.tint}`} />
-            </span>
-          ))}
-        </div>
-        <p className="sr-only">Upcoming: {data.upcomingEvents.join(', ')}</p>
-      </div>
-
-      <section className="bg-gray-50 py-32 md:py-48 dark:bg-gray-900">
+      <section id="activities" className="scroll-mt-40 py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-6 sm:px-8" data-reveal-group>
-          <h2 className={sectionTitle}>What a semester looks like.</h2>
-          <div className="mt-16 grid gap-x-12 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <SectionHeading bar={p.accentBar} title="Activities" lead={`What a typical semester looks like. Every ${meetingDay} at ${config.meeting.time} in ${config.meeting.location}.`} />
+          <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {data.activities.map((a) => (
-              <div key={a.title} data-reveal className="border-t border-gray-300 pt-6 dark:border-white/15">
-                <h3 className="text-2xl font-semibold tracking-tight">{a.title}</h3>
-                <p className="mt-3 text-base leading-relaxed text-gray-600 dark:text-gray-400">{a.description}</p>
+              <div key={a.title} data-reveal className="flex gap-5">
+                <span className={`mt-1.5 h-10 w-1.5 flex-shrink-0 rounded-full ${p.accentBar}`} aria-hidden="true" />
+                <div>
+                  <h3 className="text-xl font-bold tracking-tight">{a.title}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-gray-600 dark:text-gray-400">{a.description}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-32 md:py-48 dark:bg-gray-950">
+      <section id="officers" className="scroll-mt-40 bg-gray-50 py-20 md:py-28 dark:bg-gray-900">
         <div className="mx-auto max-w-7xl px-6 sm:px-8" data-reveal-group>
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className={sectionTitle}>The people running it.</h2>
-            <p className={sectionLead}>
-              Officer elections are held each spring. Interested in running? Email{' '}
-              <a href={`mailto:${config.email}`} className="font-semibold text-gray-900 underline-offset-4 hover:underline dark:text-gray-100">
-                {config.email}
-              </a>
-              .
-            </p>
-          </div>
+          <SectionHeading
+            bar={p.accentBar}
+            title="Officers"
+            lead={
+              <>
+                Elections are held each spring. Interested in running? Email{' '}
+                <a href={`mailto:${config.email}`} className="font-semibold text-gray-900 underline-offset-4 hover:underline dark:text-gray-100">
+                  {config.email}
+                </a>
+                .
+              </>
+            }
+          />
 
           {data.officers.length === 0 ? (
-            <p className="mt-16 text-lg text-gray-500">Officer information coming soon.</p>
+            <p className="mt-12 text-lg text-gray-500">Officer information coming soon.</p>
           ) : (
-            <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {data.officers.map((officer) => (
-                <div
-                  key={officer.name}
-                  data-reveal
-                  className="relative flex flex-col overflow-hidden rounded-3xl border border-gray-200 bg-gray-50 p-8 dark:border-white/10 dark:bg-gray-900"
-                >
-                  <div className={`pointer-events-none absolute -left-16 -top-16 h-40 w-40 rounded-full ${p.glow} blur-3xl`} />
-                  <div className="relative flex items-center gap-5">
+                <div key={officer.name} data-reveal className={`${card} flex flex-col`}>
+                  <div className="flex items-center gap-5">
                     <div className="[&>div]:mx-0 [&>div]:mb-0 [&>div]:h-16 [&>div]:w-16">
                       <OfficerAvatar name={officer.name} photo={officer.photo} theme={data.key} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold tracking-tight">{officer.name}</h3>
-                      <p className={`text-sm font-medium ${t.roleText} dark:opacity-90`}>{officer.role}</p>
+                      <h3 className="text-xl font-bold tracking-tight">{officer.name}</h3>
+                      <p className={`text-sm font-semibold ${t.roleText}`}>{officer.role}</p>
                     </div>
                   </div>
                   {(officer.major || officer.year) && (
-                    <p className="relative mt-6 text-sm text-gray-500 dark:text-gray-400">
+                    <p className="mt-5 text-sm text-gray-500 dark:text-gray-400">
                       {[officer.major, officer.year].filter(Boolean).join(', ')}
                     </p>
                   )}
-                  {officer.bio && <p className="relative mt-3 text-base leading-relaxed text-gray-600 dark:text-gray-300">{officer.bio}</p>}
-                  <div className="relative mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium">
+                  {officer.bio && <p className="mt-2 flex-1 text-base leading-relaxed text-gray-600 dark:text-gray-300">{officer.bio}</p>}
+                  <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
                     {officer.email && (
-                      <a href={`mailto:${officer.email}`} className="break-all text-gray-700 underline-offset-4 hover:underline dark:text-gray-300">
+                      <a href={`mailto:${officer.email}`} className={`${t.roleText} underline-offset-4 hover:underline`}>
                         Email
                       </a>
                     )}
                     {officer.linkedin && (
-                      <a
-                        href={officer.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-700 underline-offset-4 hover:underline dark:text-gray-300"
-                      >
+                      <a href={officer.linkedin} target="_blank" rel="noopener noreferrer" className={`${t.roleText} underline-offset-4 hover:underline`}>
                         LinkedIn
                       </a>
                     )}
@@ -419,15 +364,15 @@ export default function MotionClubPage({ data }: { data: ClubData }) {
           )}
 
           {data.advisor && (
-            <div data-reveal className="mt-4 rounded-3xl border border-gray-200 bg-gray-50 p-8 dark:border-white/10 dark:bg-gray-900">
+            <div data-reveal className={`${card} mt-5`}>
               <div className="flex flex-col items-start gap-6 sm:flex-row">
                 <div className="[&>div]:mx-0 [&>div]:mb-0">
                   <OfficerAvatar name={data.advisor.name} photo={data.advisor.photo} theme={data.key} size="lg" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Faculty advisor</p>
-                  <h3 className="mt-1 text-2xl font-semibold tracking-tight">{data.advisor.name}</h3>
-                  <p className={`text-sm font-medium ${t.roleText}`}>{data.advisor.role}</p>
+                  <p className="text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">Faculty advisor</p>
+                  <h3 className="mt-1 text-2xl font-bold tracking-tight">{data.advisor.name}</h3>
+                  <p className={`text-sm font-semibold ${t.roleText}`}>{data.advisor.role}</p>
                   {data.advisor.department && <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{data.advisor.department}</p>}
                   {data.advisor.bio && <p className="mt-3 text-base leading-relaxed text-gray-600 dark:text-gray-300">{data.advisor.bio}</p>}
                 </div>
@@ -437,42 +382,37 @@ export default function MotionClubPage({ data }: { data: ClubData }) {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-32 md:py-48 dark:bg-gray-900">
+      <section id="sponsors" className="scroll-mt-40 py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-6 sm:px-8" data-reveal-group>
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className={sectionTitle}>Partners who back the work.</h2>
-            <p className={sectionLead}>
-              Interested in sponsoring? Email{' '}
-              <a href={`mailto:${config.email}`} className="font-semibold text-gray-900 underline-offset-4 hover:underline dark:text-gray-100">
-                {config.email}
-              </a>{' '}
-              for the full prospectus.
-            </p>
-          </div>
+          <SectionHeading
+            bar={p.accentBar}
+            title="Sponsors"
+            lead={
+              <>
+                Interested in sponsoring? Email{' '}
+                <a href={`mailto:${config.email}`} className="font-semibold text-gray-900 underline-offset-4 hover:underline dark:text-gray-100">
+                  {config.email}
+                </a>{' '}
+                for the full prospectus.
+              </>
+            }
+          />
 
           {data.sponsors.length === 0 ? (
-            <p data-reveal className="mt-16 text-2xl font-medium text-gray-500 dark:text-gray-400">
+            <p data-reveal className={`${card} mt-12 text-lg text-gray-600 dark:text-gray-400`}>
               No sponsors yet. Be the first to partner with us.
             </p>
           ) : (
-            <div className="mt-16 flex flex-col gap-10">
+            <div className="mt-12 flex flex-col gap-8">
               {tierOrder.map((tier) => {
                 const tierSponsors = data.sponsors.filter((s) => s.tier === tier)
                 if (tierSponsors.length === 0) return null
                 return (
-                  <div key={tier} data-reveal className="flex flex-col gap-5">
-                    <span className={`w-fit rounded-full px-3 py-1 text-sm font-bold ${tierBadge[tier]}`}>{tier}</span>
-                    <div className="flex flex-wrap gap-5">
+                  <div key={tier} data-reveal className={card}>
+                    <span className={`inline-block rounded-full px-3 py-1 text-sm font-bold ${tierBadge[tier]}`}>{tier}</span>
+                    <div className="mt-5 flex flex-wrap gap-5">
                       {tierSponsors.map((s) => (
-                        <SponsorLogo
-                          key={s.name + s.logo}
-                          name={s.name}
-                          logo={s.logo}
-                          tier={s.tier}
-                          website={s.website}
-                          bgColor={s.bgColor}
-                          size={s.size}
-                        />
+                        <SponsorLogo key={s.name + s.logo} name={s.name} logo={s.logo} tier={s.tier} website={s.website} bgColor={s.bgColor} size={s.size} />
                       ))}
                     </div>
                   </div>
@@ -481,10 +421,10 @@ export default function MotionClubPage({ data }: { data: ClubData }) {
             </div>
           )}
 
-          <div data-reveal className="mt-16 overflow-x-auto rounded-3xl border border-gray-200 dark:border-white/10">
+          <div data-reveal className={`${card} mt-5 overflow-x-auto p-0`}>
             <table className="w-full min-w-[560px] text-sm">
               <thead>
-                <tr className="bg-gray-950 text-white">
+                <tr className={`${p.tabBar} text-white`}>
                   <th className="px-6 py-4 text-left font-semibold">Benefit</th>
                   {tierOrder.map((tier) => (
                     <th key={tier} className="px-4 py-4 text-center font-semibold">
@@ -493,20 +433,20 @@ export default function MotionClubPage({ data }: { data: ClubData }) {
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-950">
+              <tbody className="divide-y divide-gray-200 dark:divide-white/10">
                 {benefits.map((benefit) => (
                   <tr key={benefit.label}>
-                    <td className="px-6 py-4 font-medium text-gray-800 dark:text-gray-200">{benefit.label}</td>
+                    <td className="px-6 py-4 font-medium">{benefit.label}</td>
                     {benefit.tiers.map((cell, j) => (
                       <td key={j} className="px-4 py-4 text-center">
                         {cell === true ? (
-                          <span className={`inline-block h-2.5 w-2.5 rounded-full ${p.tint}`} aria-label="Included" />
+                          <span className={`inline-block h-3 w-3 rounded-full ${p.accentBar}`} aria-label="Included" />
                         ) : cell === false ? (
                           <span className="text-gray-300 dark:text-gray-600" aria-label="Not included">
                             &mdash;
                           </span>
                         ) : (
-                          <span className="font-semibold" aria-label={`${cell} included`}>
+                          <span className="font-bold" aria-label={`${cell} included`}>
                             {cell}
                           </span>
                         )}
@@ -520,40 +460,40 @@ export default function MotionClubPage({ data }: { data: ClubData }) {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-gray-950 py-32 text-white md:py-48">
-        <div className={`pointer-events-none absolute left-1/2 top-0 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/2 rounded-full ${p.glow} blur-[120px]`} />
-        <div className="grain absolute inset-0" aria-hidden="true" />
-        <div className="relative mx-auto flex max-w-6xl flex-col items-center px-6 text-center sm:px-8">
-          <h2 className="w-full font-semibold leading-[0.95] tracking-[-0.04em]" style={{ fontSize: 'clamp(3rem, 8vw, 7rem)' }}>
-            {data.closingBanner.title}
-          </h2>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-gray-400 sm:text-xl">{data.closingBanner.body}</p>
-          <p className="mt-10 text-2xl font-medium text-gray-200 sm:text-3xl">
-            Every {meetingDay}, {config.meeting.time}
-          </p>
-          <p className="mt-2 text-lg text-gray-400">{config.meeting.location}</p>
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
+      <section className={`relative overflow-hidden ${p.surface} py-20 text-white md:py-28`}>
+        <div className="pointer-events-none absolute -left-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-white/10 blur-3xl" />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 sm:px-8 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <h2 className="text-4xl font-black leading-[1] tracking-[-0.03em] sm:text-5xl md:text-6xl">{data.closingBanner.title}</h2>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">{data.closingBanner.body}</p>
+          </div>
+          <div className="flex flex-wrap gap-4 lg:col-span-4 lg:justify-end">
             <a
               href={config.discord}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${pillButton} ${p.accentBg} ${p.accentBgHover} ${p.onAccent} ${p.ring}`}
+              className={`inline-flex items-center rounded-xl px-7 py-3.5 text-base font-bold transition-colors ${p.cta} ${p.ctaText}`}
             >
               Join the Discord
             </a>
-            <a href={t.campusGroupsUrl} target="_blank" rel="noopener noreferrer" className={ghostButton}>
+            <a
+              href={t.campusGroupsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center rounded-xl border border-white/30 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10"
+            >
               CMU club page
             </a>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-white/10 bg-gray-950 text-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 sm:px-8">
+      <footer className="bg-gray-900 text-white">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 sm:px-8">
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-            <div className="flex flex-col gap-2">
-              <span className="text-lg font-semibold tracking-tight">{t.name}</span>
-              <span className="text-sm text-gray-500">{t.slogan}</span>
+            <div className="flex flex-col gap-1">
+              <span className="text-lg font-bold tracking-tight">{t.name}</span>
+              <span className="text-sm text-gray-400">{t.slogan}</span>
             </div>
             <nav aria-label="Footer" className="flex flex-wrap gap-x-8 gap-y-3">
               {navLinks.map((link) => (
@@ -577,6 +517,18 @@ export default function MotionClubPage({ data }: { data: ClubData }) {
           </p>
         </div>
       </footer>
+    </div>
+  )
+}
+
+function SectionHeading({ bar, title, lead }: { bar: string; title: string; lead: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+      <div className="flex items-stretch gap-5">
+        <span className={`w-2 flex-shrink-0 rounded-full ${bar}`} aria-hidden="true" />
+        <h2 className="text-4xl font-black leading-[1] tracking-[-0.03em] sm:text-5xl">{title}</h2>
+      </div>
+      <p className="max-w-md text-lg leading-relaxed text-gray-600 dark:text-gray-400">{lead}</p>
     </div>
   )
 }

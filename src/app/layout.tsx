@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <LayoutProvider>
             <Navbar />
-            <main id="main" className="-mt-20 flex-1 overflow-x-hidden w-full max-w-full classic:mt-0">{children}</main>
+            <main id="main" className="-mt-20 flex-1 overflow-x-clip w-full max-w-full classic:mt-0">{children}</main>
           </LayoutProvider>
         </ThemeProvider>
       </body>
